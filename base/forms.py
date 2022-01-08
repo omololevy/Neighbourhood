@@ -13,7 +13,7 @@ class NeighbourHoodCreateForm(forms.ModelForm):
             'Neighbourhood_name',
             'Neighbourhood_location',
             'Neighbourhood_image',
-            'about_hood',
+            'about_Neighbourhood',
             'occupants_count',
             'health_info',
             'police_info'

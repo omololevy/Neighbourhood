@@ -24,7 +24,7 @@ urlpatterns = [
  
     path('admin/', admin.site.urls),
     path('', include("base.urls")),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
 
     #1
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="password_reset.html"), name="password_reset"),

@@ -1,4 +1,3 @@
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -6,9 +5,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cloudinary.models import CloudinaryField  
 from django.contrib.auth.models import AbstractUser
-
-
-# Create your models here.
 
 class User(AbstractUser):
     username = models.CharField(max_length=250, unique=True)
@@ -55,10 +51,10 @@ class Profile(models.Model):
         return cls.objects.filter(user__username__icontains=name).all()
 
 class NeighbourHood(models.Model):
-    Neighbourhood_name = models.CharField(max_length=100)
-    Neighbourhood_location= models.CharField(max_length=100)
-    Neighbourhood_image = CloudinaryField('image',null=True)
-    about_Neighbourhood = models.TextField(null=True)
+    hood_name = models.CharField(max_length=100)
+    hood_location= models.CharField(max_length=100)
+    hood_image = CloudinaryField('image',null=True)
+    about_hood = models.TextField(null=True)
     occupants_count = models.IntegerField()
     admin = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     health_info = models.IntegerField(null=True, blank=True)
@@ -84,7 +80,7 @@ class NeighbourHood(models.Model):
     
     
     def __str__(self):
-        return self.Neighbourhood_name
+        return self.hood_name
     
 class Business(models.Model):
     business_name = models.CharField(max_length=100)
@@ -125,7 +121,7 @@ class Post(models.Model):
     post = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
-    Neighbourhood= models.ForeignKey(NeighbourHood,on_delete=models.CASCADE,null=True)
+    hood= models.ForeignKey(NeighbourHood,on_delete=models.CASCADE,null=True)
     
     class Meta:
         ordering = ["-pk"]

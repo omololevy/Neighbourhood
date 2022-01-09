@@ -10,10 +10,10 @@ class NeighbourHoodCreateForm(forms.ModelForm):
     class Meta:
         model= NeighbourHood
         fields = (
-            'Neighbourhood_name',
-            'Neighbourhood_location',
-            'Neighbourhood_image',
-            'about_Neighbourhood',
+            'hood_name',
+            'hood_location',
+            'hood_image',
+            'about_hood',
             'occupants_count',
             'health_info',
             'police_info'

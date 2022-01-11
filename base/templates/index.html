@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="text-white text-center" style="margin-top:15%">
+        <h1>Enjoying your Neighbourhood...</h1>
+        <h5 style="margin-top:6%">Would you want to view Businesses around?</h5>
+        {% if user.profile.neighbourhood %}
+
+
+        <a href="{% url 'single-hood' user.profile.neighbourhood.id %}" class="btn btn-sm btn-info mt-4">Explore Your
+            Neighbourhood: <em><b><h5>{{user.profile.neighbourhood.name}}</h5></b></em> 
+        </a>
+
+
+        {% else %}
+
+        <a href=""> &nbsp;
+            You Haven't Joined Any Neighbourhood Yet!
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    {% else %}
+
+    <div class="text-white text-center" style="margin-top:15%">
+        <h1>Welcome to The-Neighbourhood!</h1>
+        <h5 style="margin-top:6%">Be Aware of Anything and Everything Happening Around You</h5>
+        <a href="{% url 'hood' %}" class="btn btn-sm btn-info mt-4">Pick Your Neighbourhood</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

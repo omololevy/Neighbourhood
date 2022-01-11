@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container" style="margin-top:-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-5">
+                        <img src="{{ hood.hood_logo.url }}" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h5 class="card-title tt">{{ hood.name }} ({{hood.location}})
+                            </h5>
+                            <h6 class="card-text">
+                                <span><strong>{{hood.members.count}}</strong> Member{{hood.members.count|pluralize}}</span>
+                                | <strong>{{ hood.business.count }}</strong> Businesses | <strong>
+                                {{ hood.hood_post.count }}</strong> Post{{ hood.hood_post.count|pluralize }}
+                            </h6>
+                            <p class="card-text">{{hood.description}}</p>
+                            <p class="card-text"><span class="text-info">Police Tell</span>
+                                &nbsp;<strong>{{hood.police_number}}</strong> |
+                                <span class="text-info">Hospital Tell</span> <strong>{{hood.health_tell}}</strong></p>
+                            <p class="card-text">Administrator: <small class="text-muted">
+                                {{ hood.admin.user.username }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-white hoode">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="" class="btn btn-sm btn-outline-info mb-4 mr-4" data-toggle="modal" data-target="#ModalCenter">Add
+                    Business</a>
+                <a class="btn btn-sm btn-outline-info mb-4" href="{% url 'post' hood.id %}">New Post</a>
+                {% if hood.admin == user.profile %}
+                <a href="{% url 'members' hood.id %}" class="btn btn-sm btn-outline-info mb-4 ml-4">Members</a>
+                {% endif %}
+                <form class="form-inline" method="get" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <div class="md-form my-0">
+                        <input class="form-control mr-sm-2 " type="text" placeholder="Search Business" name="title" aria-label="Search">
+                    </div>
+                </form>
+                <h5 class="D-block mx-auto tt">Businesses</h5>
+                <hr>
+                <div class="row">
+                    {% for bus in business %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{bus.name}}
+                                </h5>
+                                <p class="card-text">{{bus.email}}</p>
+                                <p class="card-text">{{bus.description}}</p>
+                                <p class="card-text">Owner: <small class="text-muted">
+                                    {{ bus.user.user.username|title }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <h5 class="D-block mx-auto tt">Posts</h5>
+                <div class="row">
+                    {% for post in posts %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 hpost">
+                            <div class="card-body">
+                                <h5 class="card-title">{{post.title}}</h5>
+                                <p class="card-text">" {{post.post}} "
+                                </p>
+                                <p class="card-text">By: <small class="text-white">
+                                    {{ post.user.user.username|title }}</small> <small style="float:right">{{post.date|date}}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">New Business</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post">
+                                    {% csrf_token%}
+                                    {{form|crispy}}
+                                    <button type="submit" class="btn btn-sm btn-success">Save Business</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

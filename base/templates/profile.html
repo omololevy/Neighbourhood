@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container ">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 mt-4 bg-white prof mr-2 ml-2">
+            <h6>My Profile</h6>
+            <img class="rounded-circle account-img d-block mx-auto" src="{{ user.profile.profile_picture.url }}"height="125px" width="125px">
+            <h5 class="text-center mt-3">{{user.username}}</h5>
+            <p class="text-center"> {{user.email}}</p>
+            {% if request.user.profile.neighbourhood %}
+            <p class="text-center">Current Hood <a class="btn btn-sm btn-info" href="{% url 'single-hood' user.profile.neighbourhood.id %}">{{ user.profile.neighbourhood.name }}</a>
+            </p>
+
+            <a href="{% url 'edit-profile' user.username %}">
+                <i class="fas fa-edit"></i>&nbsp;
+                &nbsp; Edit Profile
+            </a>
+            {% endif %}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+</div>
+{% endblock %}

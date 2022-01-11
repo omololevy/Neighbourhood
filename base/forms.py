@@ -1,51 +1,37 @@
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, UsernameField
-from .models import NeighbourHood,Business,Post,Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Profile, NeighbourHood, Business, Post
+from pyuploadcare.dj.forms import ImageField
 
-User = get_user_model()
 
-class NeighbourHoodCreateForm(forms.ModelForm):
-    hood_image = forms.FileField(),
-    class Meta:
-        model= NeighbourHood
-        fields = (
-            'hood_name',
-            'hood_location',
-            'hood_image',
-            'about_hood',
-            'occupants_count',
-            'health_info',
-            'police_info'
-            
-        )
-        
-class BusinessForm(forms.ModelForm):
-    class Meta:
-        model=Business
-        fields = (
-            'business_name',
-            'business_email',
-            'about_business' 
-        )
-class PostForm(forms.ModelForm):
-    class Meta:
-        model=Post
-        fields = (
-            'title',
-            'post',
-        )
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
-class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(max_length=254)
-    fullname=forms.CharField(max_length=254)
-    
     class Meta:
         model = User
-        fields = ("username",'fullname', 'email',)
-        
+        fields = ('username', 'email', 'password1', 'password2')
 
-class UpdateUserProfileForm(forms.ModelForm):
+
+class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'profile_picture')
+        exclude = ('user', 'neighbourhood')
+
+
+class NeighbourHoodForm(forms.ModelForm):
+    class Meta:
+        model = NeighbourHood
+        exclude = ('admin',)
+
+
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model = Business
+        exclude = ('user', 'neighbourhood')
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ('user', 'hood')

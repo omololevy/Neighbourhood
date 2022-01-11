@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<table class="table table-striped table-light">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Location</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for member in members%}
+    <tr>
+      <th scope="row">*</th>
+      <td>{{ member.user.username }}</td>
+      <td>{{ member.location}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

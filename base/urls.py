@@ -1,42 +1,18 @@
-from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
-from .views import LandingPageView,HomePageView,NeighbourHoodCreateView,ProfileView,NeigbourhoodDetail,UpdateNeigbourhood,add_business,add_post,update_post,update_business,join_neighbourhood,leave_neighbourhood,update_profile
-from base.views import SignupView
-from django.contrib.auth.views import(
-    LoginView,
-    LogoutView,
-    PasswordResetView,
-    PasswordResetDoneView,
-    PasswordResetConfirmView
-)
-
+from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    path('home/', HomePageView,name='home'),
-    path('', LandingPageView.as_view(),name='landing'),
-
-    path('join_neighbourhood/<int:id>', join_neighbourhood,name="join_neighbourhood"),
-    path('leave_neighbourhood/<int:id>', leave_neighbourhood,name="leave_neighbourhood"),
-
-
-    path('create_hood/', NeighbourHoodCreateView.as_view(),name="create_hood"),
-    path('hood/<int:id>', NeigbourhoodDetail,name="hood"),
-    path('update_hood/<int:id>', UpdateNeigbourhood,name="update_hood"),
-    path('add_business/<int:id>', add_business,name="add_business"),
-    path('update_business/<int:id>', update_business,name="update_business"),
-    path('add_post/<int:id>', add_post,name="add_post"),
-    path('update_post/<int:id>', update_post,name="update_post"),
-    
-    
-    path('profile/', ProfileView,name="profile"),
-    path('update_profile/', update_profile,name="update_profile"),
-    path('signup/', SignupView,name='signup'),
-    path('login/', LoginView.as_view(),name='login'),
-    path('logout/', LogoutView.as_view(next_page = '/'),name='logout'),
-
+    path('', views.index, name='index'),
+    path('register/', views.signup, name='signup'),
+    path('account/', include('django.contrib.auth.urls')),
+    path('all-hoods/', views.hoods, name='hood'),
+    path('new-hood/', views.create_hood, name='new-hood'),
+    path('profile/<username>', views.profile, name='profile'),
+    path('profile/<username>/edit/', views.edit_profile, name='edit-profile'),
+    path('join_hood/<id>', views.join_hood, name='join-hood'),
+    path('leave_hood/<id>', views.leave_hood, name='leave-hood'),
+    path('single_hood/<hood_id>', views.single_hood, name='single-hood'),
+    path('<hood_id>/new-post', views.create_post, name='post'),
+    path('<hood_id>/members', views.hood_members, name='members'),
+    path('search/', views.search_business, name='search'),
 ]
- 
-if settings.DEBUG:
-    urlpatterns+= static(settings.MEDIA_URL,document_root= settings.MEDIA_ROOT)
-

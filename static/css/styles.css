@@ -1,0 +1,76 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+.form-text, .asteriskField{
+    display:none;
+}
+.nav-img{
+    height: 30px;
+    width: 30px;
+}
+.col-form-label {
+    font-weight: bold;
+}
+.editprofile{
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+.newhood{
+    padding-bottom: 20px;
+    padding-top: 10px;
+    margin-top:-4%;
+}
+.hoode{
+    padding-bottom: 20px;
+    padding-top: 10px;
+    margin-top: -1%;
+}
+.prof{
+    padding:40px;
+    border-radius:6px;
+}
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 20px 10px;
+    background-color: #21568f;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+i,
+span {
+    display: inline-block;
+}
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+.tt{
+    color:#1a3e59;
+}
+.hpost{
+   background-color:#1a3e59;
+   color: white;
+}
+.poster{
+    padding: 20px;
+    border-radius: 6px;
+}

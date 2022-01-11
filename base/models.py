@@ -1,31 +1,45 @@
-from django.contrib.auth import get_user_model
 from django.db import models
-
-from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
+from pyuploadcare.dj.models import ImageField
 from django.dispatch import receiver
-from cloudinary.models import CloudinaryField  
-from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
 
-class User(AbstractUser):
-    username = models.CharField(max_length=250, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)
-    is_admin = models.BooleanField(default=False)
-    
+
+class NeighbourHood(models.Model):
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=60)
+    admin = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='hood')
+    hood_logo =  CloudinaryField('profile_photos/', default='profile_photos/user')
+    description = models.TextField()
+    health_tell = models.IntegerField(null=True, blank=True)
+    police_number = models.IntegerField(null=True, blank=True)
+
     def __str__(self):
-        return f'{self.username}'
-        
+        return f'{self.name} hood'
+
+    def create_neighborhood(self):
+        self.save()
+
+    def delete_neighborhood(self):
+        self.delete()
+
+    @classmethod
+    def find_neighborhood(cls, neighborhood_id):
+        return cls.objects.filter(id=neighborhood_id)
+
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
-    profile_picture = CloudinaryField('image',null=True)
-    bio = models.TextField(max_length=500, default="My Bio", blank=True)
-    neighbourHood = models.ForeignKey('NeighbourHood',on_delete=models.SET_NULL, null=True, related_name='members', blank=True)
-  
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    name = models.CharField(max_length=80, blank=True)
+    bio = models.TextField(max_length=254, blank=True)
+    profile_picture = CloudinaryField('profile_photos/', default='profile_photos/user')
+    location = models.CharField(max_length=50, blank=True, null=True)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.SET_NULL, null=True, related_name='members', blank=True)
 
     def __str__(self):
-        return f'{self.user} '
-    
+        return f'{self.user.username} profile'
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -35,112 +49,32 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-    def save_profile(self):
-        self.user
 
-    def delete_profile(self):
-        self.delete()
-    
-    @classmethod
-    def filter_profile_by_id(cls, id):
-        profile = Profile.objects.filter(user__id = id).first()
-        return profile
-
-    @classmethod
-    def search_profile(cls, name):
-        return cls.objects.filter(user__username__icontains=name).all()
-
-class NeighbourHood(models.Model):
-    hood_name = models.CharField(max_length=100)
-    hood_location= models.CharField(max_length=100)
-    hood_image = CloudinaryField('image',null=True)
-    about_hood = models.TextField(null=True)
-    occupants_count = models.IntegerField()
-    admin = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
-    health_info = models.IntegerField(null=True, blank=True)
-    police_info = models.IntegerField(null=True, blank=True)
-    
-    class Meta:
-        ordering = ["-pk"]
-    
-    def save_neighbourhood(self):
-        self.save()
-
-    def delete_neighbourhood(self):
-        self.delete()
-        
-    @classmethod
-    def get_neighbourhood_by_id(cls,id):
-        neighbourhood = NeighbourHood.objects.filter(pk=id)
-        return neighbourhood
-    
-    @classmethod
-    def search_neighbourhood_by_search_term(cls,search_term):
-        return cls.objects.filter(name__icontains=search_term).all()
-    
-    
-    def __str__(self):
-        return self.hood_name
-    
 class Business(models.Model):
-    business_name = models.CharField(max_length=100)
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
-    business_email = models.EmailField()
-    about_business = models.TextField(null=True)
-    owner = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
-    
-    class Meta:
-        ordering = ["-pk"]
-    
-    def save_business(self):
+    name = models.CharField(max_length=120)
+    email = models.EmailField(max_length=254)
+    description = models.TextField(blank=True)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='business')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owner')
+
+    def __str__(self):
+        return f'{self.name} Business'
+
+    def create_business(self):
         self.save()
 
     def delete_business(self):
         self.delete()
-        
+
     @classmethod
-    def get_business_by_id(cls,id):
-        business = Business.objects.filter(pk=id)
-        return business
-    
-    @classmethod
-    def get_business_by_neighbourhood(cls,id):
-        business = Business.objects.filter(neighbourhood=id).all()
-        return business
-    
-    @classmethod
-    def search_business_by_search_term(cls,search_term):
-        return cls.objects.filter(business_name__icontains=search_term).all()
-    
-    def __str__(self):
-        return self.business_name
+    def search_business(cls, name):
+        return cls.objects.filter(name__icontains=name).all()
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=100,null=True)
+    title = models.CharField(max_length=120, null=True)
     post = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
-    hood= models.ForeignKey(NeighbourHood,on_delete=models.CASCADE,null=True)
-    
-    class Meta:
-        ordering = ["-pk"]
-    
-    def save_post(self):
-        self.save()
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_owner')
+    hood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='hood_post')
 
-    def delete_post(self):
-        self.delete()
-        
-    @classmethod
-    def get_post_by_id(cls,id):
-        post =Post.objects.filter(pk=id)
-        return post
-        
-    @classmethod
-    def get_posts_by_neighbourhood(cls,id):
-        posts = Post.objects.filter(hood=id).all()
-        return posts
-    
-    def __str__(self):
-        return self.title

@@ -4,8 +4,7 @@
 
 
 # Description
-A Python-Django web application that allow users to post a project they have created and get it reviewed and rated by their peers on a scale of 1 - 10 based on the Design, Usability, and Content.
-
+This is a neighborhood app where a user must signup first, be able to join a hood owned by the hood admin, and once you join a hood, one can see businesses and posts in only that hood they belong to.
 
 
 ## Project live sites
@@ -18,19 +17,21 @@ The app looks like this:
   ![Image](/static/images/home.png)
 
 ## Sample Posts
-  ![Image](/static/photos/sample.png)
+  ![Image](/static/images/neighbourhoods.png)
 
 
 ## Author
 [Levy Omolo](https://github.com/omololevy/)
 ## User Story
 With this application, users are able to :
-1. View posted projects and their details.
-2. Post a project to be rated/reviewed.
-3. Rate/ review other users' projects.
-4. Search for projects.
-5. View projects overall score.
-6. View my profile page.
+* Sign in with the application to start using.
+* Set up a profile about them and a general location and their neighborhood name.
+* Find a list of different businesses in their neighborhood.
+* Find Contact Information for the health department and Police authorities near their neighborhood.
+* Create Posts that will be visible to everyone in their neighborhood
+* Change their neighborhood when they decide to move out.
+* Only view details of a single neighborhood they are enrolled.
+
 
 
 ## Setup/Installation Requirements
@@ -55,21 +56,32 @@ With this application, users are able to :
 2. Run tests
 
     
-   ``` python3 manage.py test instagram```
+   ``` python3 manage.py test ```
 
 ## Technologies Used
+![](https://img.shields.io/badge/html5-orange?style=for-the-badge&logo=html5&logoColor=white) ![](https://img.shields.io/badge/css3-430098?style=for-the-badge&logo=css3&logoColor=white)
+![](https://img.shields.io/badge/javascript-yellow?style=for-the-badge&logo=javascript&logoColor=white)  ![](https://img.shields.io/badge/python-276DC3?style=for-the-badge&logo=python&logoColor=white)
+![](https://img.shields.io/badge/Bootstrap-430098?style=for-the-badge&logo=bootstrap&logoColor=white)  ![](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white) 
 
-* Python3.9.9
-* Django 4.0.1
-* Bootstrap
-* PostgreSQL
-* CSS
-* Heroku
+ ![](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+ ![](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) ![](https://img.shields.io/badge/SQLITE-4EA94B?style=for-the-badge&logo=sqlite&logoColor=white) 
+
+ ![](	https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white) ![](https://img.shields.io/badge/ubuntu-87CF3E?style=for-the-badge&logo=ubuntu&logoColor=white)
+
+
 
 
 ## Contact Information
 
 For any further inquiries or contributions or comments, reach me at [Levy Omolo](https://github.com/omololevy)
+
+
+<p align="center">
+<a href="https://levy-omolo.herokuapp.com/"><img src="https://img.shields.io/badge/PORTFOLIO-CC6699?style=for-the-badge&logoColor=white alt="Portfolio" /></a>&nbsp;
+<a href="https://www.linkedin.com/in/levy-omolo/"><img src="https://img.shields.io/badge/linkedin-430098?style=for-the-badge&logo=linkedin&logoColor=white" alt="CodePen" /></a>&nbsp;
+<a href="https://twitter.com/kaylor254"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>&nbsp;
+<a href="https://www.hackerrank.com/levy_omolo"><img src="https://img.shields.io/badge/hackerrank-0A0A0A?style=for-the-badge&logo=hackerrank&logoColor=white alt="Dev.to" /></a>&nbsp;
+
 
 ## LICENSE
 

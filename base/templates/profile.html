@@ -13,11 +13,11 @@
             <p class="text-center">Current Hood <a class="btn btn-sm btn-info" href="{% url 'single-hood' user.profile.neighbourhood.id %}">{{ user.profile.neighbourhood.name }}</a>
             </p>
 
+            {% endif %}
             <a href="{% url 'edit-profile' user.username %}">
                 <i class="fas fa-edit"></i>&nbsp;
                 &nbsp; Edit Profile
             </a>
-            {% endif %}
         </div>
         <div class="col-md-3"></div>
     </div>

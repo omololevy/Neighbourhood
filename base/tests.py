@@ -7,9 +7,9 @@ from .models import Post,NeighbourHood,Business,Profile,User
 class ProfileTestClass(TestCase):
     #setup method
     def setUp(self):
-        self.user = User(username='Levy')
+        self.user = Profile(user='Levy')
         self.user.save()
-        self.user_profile = Profile(user=self.user,profile_picture="photore.png",bio="My bio")
+        self.user_profile = Profile(user=self.user, profile_picture="photore.png", bio="My bio")
    
     def tearDown(self):
         User.objects.all().delete()

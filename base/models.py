@@ -12,8 +12,10 @@ class NeighbourHood(models.Model):
     admin = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='hood')
     hood_logo =  CloudinaryField('profile_photos/', default='profile_photos/user')
     description = models.TextField()
-    health_tell = models.IntegerField(null=True, blank=True)
-    police_number = models.IntegerField(null=True, blank=True)
+    health_info = models.IntegerField(null=True, blank=True)
+    health_officer = models.CharField(max_length=60, null=True, blank=True)
+    police_info = models.IntegerField(null=True, blank=True)
+    police_officer = models.CharField(max_length=60, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name} hood'

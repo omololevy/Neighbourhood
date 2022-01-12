@@ -11,6 +11,9 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 <button class="btn btn-sm btn-outline-success"> Update</button>
+                <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">
+                    <a href="{% url 'profile' user.username %}">Cancel</a>
+                </button>
             </form>
         </div>
         <div class="col-md-1"></div>

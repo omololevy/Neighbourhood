@@ -20,10 +20,15 @@
                                 {{ hood.hood_post.count }}</strong> Post{{ hood.hood_post.count|pluralize }}
                             </h6>
                             <p class="card-text">{{hood.description}}</p>
-                            <p class="card-text"><span class="text-info">Police Tell</span>
-                                &nbsp;<strong>{{hood.police_number}}</strong> |
-                                <span class="text-info">Hospital Tell</span> <strong>{{hood.health_tell}}</strong></p>
-                            <p class="card-text">Administrator: <small class="text-muted">
+                            <p class="card-text"><span class="text-info">Police Info:</span>
+                                &nbsp;<strong>{{hood.police_info}}</strong> <br>
+                                <span class="text-info">Police Officer:</span>
+                                &nbsp;<strong>{{hood.police_officer}}</strong><br><br>
+                                <span class="text-info">Hospital Info:</span>
+                                <strong>{{hood.health_info}}</strong><br>
+                                <span class="text-info">Doctor:</span>
+                                &nbsp;<strong>{{hood.health_officer}}</strong></p>
+                            <p class="card-text">Neighbourhood Admin: <small class="text-muted">
                                 {{ hood.admin.user.username }}</small></p>
                         </div>
                     </div>
@@ -34,11 +39,11 @@
     <div class="container bg-white hoode">
         <div class="row">
             <div class="col-md-12">
-                <a href="" class="btn btn-sm btn-outline-info mb-4 mr-4" data-toggle="modal" data-target="#ModalCenter">Add
+                <a href="" class="btn btn-sm btn-info mb-4 mr-4" data-toggle="modal" data-target="#ModalCenter">Add
                     Business</a>
-                <a class="btn btn-sm btn-outline-info mb-4" href="{% url 'post' hood.id %}">New Post</a>
+                <a class="btn btn-sm btn-info mb-4" href="{% url 'post' hood.id %}">New Post</a>
                 {% if hood.admin == user.profile %}
-                <a href="{% url 'members' hood.id %}" class="btn btn-sm btn-outline-info mb-4 ml-4">Members</a>
+                <a href="{% url 'members' hood.id %}" class="btn btn-sm btn-info mb-4 ml-4">Members</a>
                 {% endif %}
                 <form class="form-inline" method="get" action="{% url 'search' %}">
                     {% csrf_token %}
@@ -55,8 +60,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{bus.name}}
                                 </h5>
-                                <p class="card-text">{{bus.email}}</p>
-                                <p class="card-text">{{bus.description}}</p>
+                                <p class="card-text" style="color: blue;">{{bus.email}}</p>
+                                <p class="card-text"><em><b>{{bus.description}}</b></em></p>
                                 <p class="card-text">Owner: <small class="text-muted">
                                     {{ bus.user.user.username|title }}</small></p>
                             </div>
@@ -96,9 +101,9 @@
                                 <form action="" method="post">
                                     {% csrf_token%}
                                     {{form|crispy}}
-                                    <button type="submit" class="btn btn-sm btn-success">Save Business</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">
-                                        Close
+                                    <button type="submit" class="btn btn-sm btn-info">Save Business</button>
+                                    <button type="button" class="btn btn-sm btn-danger " data-dismiss="modal">
+                                        Cancel
                                     </button>
                                 </form>
                             </div>

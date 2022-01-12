@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<table class="table table-striped table-light">
+
+<a class="btn btn-sm btn-info" href="{% url 'single-hood' user.profile.neighbourhood.id %}">&laquo Back</a><br>
+
+<table class="table table-striped table-dark" style="border-top: 5px;">
   <thead>
     <tr>
       <th scope="col">#</th>

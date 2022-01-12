@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
 
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-ALLOWED_HOSTS=["bla-bla.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS=["https://levy-neighbourhood.herokuapp.com/", "localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -42,14 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'base',
-    'pyuploadcare.dj',
     'cloudinary',
     
 ]
-UPLOADCARE = {
-    'pub_key': '2b709bca64245dd9e55e',
-    'secret': '0a60851de5f3db2dc728',
-}
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -166,7 +162,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 django_on_heroku.settings(locals())
 
 cloudinary.config( 
-  cloud_name = "dim8pysls", 
-  api_key = "111589689929649", 
-  api_secret = "fICQAMAqo4kM-6a84vTPlUXtmtc",
+  cloud_name = config('cloud_name'), 
+  api_key = config('api_key'), 
+  api_secret = config('api_secret'),
 )

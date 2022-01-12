@@ -12,7 +12,7 @@ class ProfileTestClass(TestCase):
         self.user_profile = Profile(user=self.user, profile_picture="photore.png", bio="My bio")
    
     def tearDown(self):
-        User.objects.all().delete()
+       
         Profile.objects.all().delete()
       
     def test_instance(self):
@@ -32,7 +32,7 @@ class ProfileTestClass(TestCase):
 class NeighbouhoodTestClass(TestCase):
     #setup method
     def setUp(self):
-        self.user = User(username='Levy')
+        self.user = Profile(name='Levy')
         self.user.save()
         self.user_profile = Profile(user=self.user,profile_picture="photore.png",bio="My bio")
         self.hood= NeighbourHood(hood_name="Dala",hood_location="Nairobi",occupants_count=10,admin=self.user_profile)

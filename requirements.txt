@@ -9,7 +9,7 @@ django-decouple==2.1
 django-on-heroku==1.1.2
 gunicorn==20.1.0
 idna==3.3
-Pillow==8.3.2
+Pillow==9.0.0
 psycopg2-binary==2.9.3
 python-dateutil==2.8.2
 python-decouple==3.5
